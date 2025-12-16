@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情報工学概論 テスト対策ドキュメント</title>
+    <style>
+        /* ===== 全体 ===== */
+body {
+    font-family: 'Segoe UI', Meiryo, sans-serif;
+    line-height: 1.8;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px;
+    background: #f4f6f8;
+    color: #222;
+}
+
+.container {
+    background: #ffffff;
+    padding: 32px;
+    border-radius: 10px;
+}
+
+/* ===== 見出し設計（色を最小限に） ===== */
+h1 {
+    font-size: 28px;
+    border-bottom: 4px solid #333;
+    padding-bottom: 12px;
+    margin-bottom: 32px;
+}
+
+h2 {
+    font-size: 22px;
+    margin-top: 48px;
+    padding: 14px 18px;
+    background: #eef1f4;
+    border-left: 6px solid #333;
+}
+
+h3 {
+    font-size: 18px;
+    margin-top: 32px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #bbb;
+}
+
+h4 {
+    font-size: 16px;
+    margin-top: 24px;
+    font-weight: bold;
+}
+
+/* ===== 強調表現（色を絞る） ===== */
+.important {
+    background: #fff3cd;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.critical {
+    background: #fdecea;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.keyword {
+    background: #eef5ff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+/* ===== ボックス系 ===== */
+.note,
+.example {
+    background: #f8f9fa;
+    border-left: 5px solid #999;
+    padding: 14px;
+    margin: 16px 0;
+}
+
+.warning {
+    background: #fff1e6;
+    border-left: 5px solid #ff9800;
+    padding: 14px;
+    margin: 16px 0;
+}
+
+/* ===== 数式 ===== */
+.formula {
+    background: #f1f5f9;
+    padding: 12px;
+    border-left: 4px solid #333;
+    margin: 14px 0;
+    font-family: monospace;
+}
+
+/* ===== リスト ===== */
+ul, ol {
+    margin-left: 22px;
+}
+
+li {
+    margin: 6px 0;
+}
+
+/* ===== 表 ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+th {
+    background: #f0f0f0;
+}
+
+/* ===== セクション区切り ===== */
+.section-divider {
+    border-top: 4px solid #ddd;
+    margin: 60px 0;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 情報工学概論 テスト対策ドキュメント</h1>
+        
+        <div class="note">
+            <strong>テスト範囲:</strong> 教科書6章・7章 + スライド(10回～12回) + 関連科目<br>
+            <strong>配点:</strong> 33点満点<br>
+            <strong>対象週:</strong> 第10週・第11週(ネットワークとセキュリティ)、第12週(人工知能)
+        </div>
+
+        <h2>第1部: ネットワークとセキュリティ(1) - 2025-11-26</h2>
+
+        <h3>1. 関連科目の体系</h3>
+        <ul>
+            <li>1S(一年前期): <span class="keyword">初年次教育</span> - 情報スキル(1), (2)</li>
+            <li>3S(二年前期): <span class="keyword">ネットワーク基礎１</span></li>
+            <li>4S(二年後期): <span class="keyword">ネットワーク基礎２</span></li>
+            <li>5S(三年前期): <span class="keyword">ネットワーク応用</span></li>
+            <li>6S(三年後期): <span class="keyword">センシングとIoT</span></li>
+        </ul>
+
+        <h3>2. 通信のモデル - シャノンとウィーバー</h3>
+        <div class="note">
+            <strong>参考文献:</strong> クロード・E・シャノン、ワレン・ウィーバー(著)、植松友彦(訳)、通信の数学的理論、ちくま学芸文庫、2009年
+        </div>
+        
+        <h4>2.1 通信システムの構成要素</h4>
+        <ul>
+            <li><span class="important">情報源</span> → <span class="important">送信機</span> → <span class="critical">雑音源</span> → <span class="important">受信機</span> → <span class="important">受信者</span></li>
+            <li><span class="critical">必ずノイズ(雑音)が入る</span>が、実用上問題が無いように見せている</li>
+        </ul>
+
+        <h4>2.2 通信の3つの問題レベル</h4>
+        <ol>
+            <li><span class="important">A) 技術的な問題</span>: 記号をどのくらい正確に伝えることができるのか</li>
+            <li><span class="important">B) 意味的な問題</span>: 送信された記号は、どのくらい正確に所望の意図を伝えることができるのか</li>
+            <li><span class="important">C) 効果の問題</span>: 受信された意図は、どのくらい効果的に所望する行為に影響するのか</li>
+        </ol>
+
+        <div class="example">
+            <strong>例1: ヴィクトル・ユーゴーと出版社</strong>
+            <ul>
+                <li>A) <span class="keyword">?と!</span>の送信</li>
+                <li>B) 「売れているか?」という問い合わせの意図、「物凄く売れています」という返信の意図</li>
+                <li>C) 作者が売れ行きを気にしている、出版社が喜びを伝えている</li>
+            </ul>
+        </div>
+
+        <h4>2.3 平均情報量(エントロピー)</h4>
+        <div class="formula">
+            H = -[p₁log p₁ + p₂log p₂ + ... + pₙlog pₙ]<br>
+            H = -Σ(i=1 to n) pᵢ log pᵢ
+        </div>
+        <p>n個の独立な記号の集合が確率pₙで選ばれる場合の平均情報量</p>
+
+        <h3>3. 通信と認知科学</h3>
+        <ul>
+            <li><span class="keyword">数学</span>: モデル化の道具</li>
+            <li><span class="keyword">物理</span>: 物理的制約</li>
+            <li><span class="keyword">認知</span>: 認知を通信に使う例(深層学習器)</li>
+        </ul>
+
+        <h4>3.1 物理的制約</h4>
+        <ul>
+            <li>光ファイバーですら「遅い」</li>
+            <li>あらゆる通信媒体には<span class="critical">伝達可能距離の上限</span>がある</li>
+            <li>量子もつれ、ですら制約がある</li>
+            <li>光通信と電気通信の変換で<span class="important">ロスが発生</span></li>
+            <li><span class="keyword">NTT IOWN構想</span>: Innovative Optical and Wireless Network</li>
+            <li><span class="keyword">Cognitive Radio</span>というキーワード</li>
+        </ul>
+
+        <h3>4. 通信の歴史</h3>
+        <ul>
+            <li>大声、のろし、旗、光、追跡サイン、手紙、伝書バト</li>
+            <li><span class="example">江戸時代のコメ相場: 大阪→広島 27分、大阪→江戸 1時間40分 or 8時間</span></li>
+        </ul>
+
+        <h3>5. 技術的課題</h3>
+
+        <h4>5.1 モールス符号の例</h4>
+        <div class="note">
+            <strong>重要な違い:</strong>
+            <ul>
+                <li><span class="important">欧文モールス</span>: 使用頻度の高い字に短い符号を割り当てた(E, I, T, S, Aなど)</li>
+                <li><span class="important">和文モールス</span>: 欧文をそのままイロハに割り当てた</li>
+                <li>このため<span class="critical">通信速度に差</span>が生じる</li>
+            </ul>
+        </div>
+
+        <h4>5.2 通信と放送の違い</h4>
+        <ul>
+            <li><span class="keyword">1対1</span>: 通信</li>
+            <li><span class="keyword">1対n</span>: 放送</li>
+            <li><span class="keyword">1対n</span>: マルチキャスト通信</li>
+        </ul>
+
+        <h4>5.3 ネットワーク接続の計算</h4>
+        <div class="formula">
+            <strong>全ノード間接続に必要な線の数:</strong><br>
+            8個のノード: 7+6+5+4+3+2+1 = 28本<br>
+            9個: 36本<br>
+            10個: 45本<br>
+            <strong>一般式:</strong> n = (n-1)×n/2
+        </div>
+
+        <h4>5.4 クロスバースイッチ</h4>
+        <ul>
+            <li>全てのノードが<span class="critical">同時には通信できない</span>が、線の数は飛躍的に減る</li>
+            <li>例: 8個のノードで16本(2n)の線で済む</li>
+        </ul>
+
+        <h4>5.5 共有通信路</h4>
+        <ul>
+            <li>同時に利用できるのは<span class="critical">一対のみ</span>と諦めると、nがいくら大きくなっても<span class="important">1本の線</span>で通信できる</li>
+            <li><span class="keyword">無線LAN</span>や<span class="keyword">Ethernet</span>の原理</li>
+            <li>実際には<span class="important">多重化する仕組み</span>で複数ノードが同時通信</li>
+        </ul>
+
+        <h4>5.6 主要な技術的課題</h4>
+        <ol>
+            <li>通信相手を特定すること</li>
+            <li>物理的な限界のある通信路を延長すること</li>
+            <li>通信路を限定すること</li>
+            <li>膨大な量の通信相手を選択すること</li>
+            <li>誤りの発生へ対処すること</li>
+            <li>通信の秘密をまもること</li>
+        </ol>
+
+        <h3>6. ネットワークの基本概念</h3>
+
+        <h4>6.1 ネットワーク・インターネット・ウェブの違い</h4>
+        <ul>
+            <li><span class="keyword">ネットワーク</span>: 全てがネットワークに繋がっている(と思われている時代)</li>
+            <li><span class="important">インターネット</span>: 元々は個別のネットワークを相互に繋いだ「インター・ネットワーク」</li>
+            <li><span class="critical">The Internet</span>: 現行の<span class="keyword">IPv4, IPv6とDNS</span>による通信網</li>
+            <li>しばしば止まっている、サービスが停止していることもある</li>
+        </ul>
+
+        <h4>6.2 ウェブ・スマホ以外のインターネット応用</h4>
+        <table>
+            <tr>
+                <th>サービス</th>
+                <th>説明</th>
+            </tr>
+            <tr>
+                <td><span class="keyword">電子メール(SMTP)</span></td>
+                <td>開始当時はバケツリレー方式(UUCP)、!で中継ホストを指定<br>形式: USER_NAME@DOMAIN.EXAMPLE</td>
+            </tr>
+            <tr>
+                <td><span class="keyword">時刻合わせ(NTP)</span></td>
+                <td>世界中の原子時計と同期<br>国内: ntp.nict.jp (情報通信研究機構)</td>
+            </tr>
+            <tr>
+                <td><span class="keyword">Radiko</span></td>
+                <td>ラジオの放送(通信)、UDP利用技術</td>
+            </tr>
+            <tr>
+                <td><span class="keyword">QUIC</span></td>
+                <td>TCP, UDPの次の技術</td>
+            </tr>
+            <tr>
+                <td><span class="keyword">NAT</span></td>
+                <td>Network Address Translation</td>
+            </tr>
+        </table>
+
+        <h4>6.3 サーバとクライアント</h4>
+        <ul>
+            <li><span class="keyword">クライアント</span> → <span class="important">Request</span> → <span class="keyword">サーバ</span></li>
+            <li><span class="keyword">サーバ</span> → <span class="important">Service</span> → <span class="keyword">クライアント</span></li>
+        </ul>
+        <div class="warning">
+            <strong>注意点:</strong>
+            <ul>
+                <li>「サーバ」という名称を忌避する傾向(master/slaveの問題、gitでは既に顕著)</li>
+                <li>サーバが常に高機能・高信頼とは限らない</li>
+                <li>利用者の手元がクライアントとは限らない</li>
+            </ul>
+        </div>
+
+        <div class="example">
+            <strong>X-Windowの例:</strong> X-ServerとX-Clientの関係
+        </div>
+
+        <h4>6.4 プロトコル</h4>
+        <ul>
+            <li><span class="keyword">プロトコル</span>: 外交儀礼</li>
+            <li><span class="important">RFC</span>(Request For Comment)で規定されたインターネット通信プロトコル</li>
+            <li>主要プロトコル: <span class="keyword">HTTP, HTTPS, SMTP, POP, IMAP, NTP, SSH</span></li>
+            <li><span class="critical">telnet, ftpはよほどのことが無ければ使わない</span></li>
+        </ul>
+
+        <h3>7. ウェブページが表示されるまで</h3>
+
+        <h4>7.1 URL(Uniform Resource Locator)</h4>
+        <div class="formula">
+            https://www.chibatech.ac.jp/cis/index.html<br>
+            ↑プロトコル ↑FQDN ↑パス
+        </div>
+        <ul>
+            <li><span class="keyword">FQDN</span>: Fully Qualified Domain Name</li>
+        </ul>
+
+        <h4>7.2 処理の流れ</h4>
+        <ol>
+            <li>PC/smartphone → http://FQDN/pathname</li>
+            <li><span class="keyword">DNS cache</span> → FQDN → IP address変換</li>
+            <li>Web Server → HTML, JavaScriptを返す</li>
+            <li><span class="important">レンダリング</span> → 画面描画</li>
+            <li>再帰的に他のURLへアクセス</li>
+            <li><span class="keyword">CDN(Akamai等)</span>の利用</li>
+        </ol>
+
+        <h4>7.3 HTML</h4>
+        <ul>
+            <li><span class="keyword">SGML, XML</span>から派生</li>
+            <li><span class="keyword">W3C</span>が規定</li>
+            <li>歴史的経緯で<span class="important">あいまいな文法をかなり許容</span>する実装</li>
+            <li><span class="keyword">CSS, JavaScript</span>の組み合わせで難解化</li>
+            <li>サーバ側で動的に生成: <span class="keyword">Django, JSP, PHP Laravel</span></li>
+        </ul>
+
+        <h4>7.4 ウェブブラウザとサーバの仕事</h4>
+        <ul>
+            <li><span class="keyword">ウェブブラウザ</span>: 送られてきたコンテンツ(HTML, 画像等)を利用者へ提示</li>
+            <li><span class="keyword">サーバ</span>: Requestに応じてコンテンツを返す</li>
+            <li>サーバ例: <span class="keyword">Apache httpd, NGINX</span></li>
+        </ul>
+
+        <h3>8. 通信のために必要なもの</h3>
+
+        <h4>8.1 ドメイン名</h4>
+        <ul>
+            <li>登録事業者から買う、<span class="keyword">JPNIC</span>へ登録する</li>
+            <li><span class="warning">課題: 一時的サービスのためのドメイン利用</span></li>
+        </ul>
+
+        <h4>8.2 IPアドレス</h4>
+        <ul>
+            <li><span class="critical">IPv4は日本において既に枯渇</span>している(アジア圏の割り当てを利用中)</li>
+            <li><span class="important">IPv6は国内54%</span>(らしい)</li>
+            <li><span class="keyword">プライベートアドレス</span>と<span class="keyword">グローバルアドレス</span></li>
+            <li><span class="important">NAT</span>の仕様上の限界</li>
+        </ul>
+
+        <h4>8.3 ポート</h4>
+        <ul>
+            <li><span class="keyword">Well known port</span></li>
+            <li><span class="critical">しばしば攻撃対象</span>になる</li>
+            <li>例: 20,21(FTP), 23(telnet), 22(SSH)</li>
+        </ul>
+
+        <h3>9. ネットワーク層の構造</h3>
+        <table>
+            <tr>
+                <th>層</th>
+                <th>内容</th>
+                <th>識別子</th>
+            </tr>
+            <tr>
+                <td><span class="keyword">物理層</span></td>
+                <td>電線、光、電波</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td><span class="keyword">データリンク層</span></td>
+                <td>イーサネット</td>
+                <td><span class="important">MACアドレス</span>(当初は機器固有)</td>
+            </tr>
+            <tr>
+                <td><span class="keyword">ネットワーク層</span></td>
+                <td>IP</td>
+                <td><span class="important">IPアドレス</span>(当初は組織固有)</td>
+            </tr>
+            <tr>
+                <td><span class="keyword">トランスポート層</span></td>
+                <td>TCP/UDP/QUIC</td>
+                <td><span class="important">port番号</span>で識別</td>
+            </tr>
+            <tr>
+                <td><span class="keyword">セッション層</span></td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td><span class="keyword">プレゼンテーション層</span></td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td><span class="keyword">アプリケーション層</span></td>
+                <td>https, smtp等</td>
+                <td>-</td>
+            </tr>
+        </table>
+
+        <div class="section-divider"></div>
+
+        <h2>第2部: ネットワークとセキュリティ(2) - 2025-12-03</h2>
+
+        <h3>10. ドメイン関連の問題</h3>
+        <div class="warning">
+            <strong>取得したドメインを維持しないことによる問題の発生例</strong><br>
+            教科書 p.160, 6.4.4参照
+        </div>
+
+        <h3>11. DHCP (Dynamic Host Configuration Protocol)</h3>
+
+        <h4>11.1 基本機能</h4>
+        <ul>
+            <li><span class="important">IPアドレスを自動設定</span>する仕組み</li>
+            <li>ルータで動いているため、手動設定不要で通信可能</li>
+            <li><span class="critical">ルータ内で別のDHCPサーバが動作すると混乱</span>の元</li>
+        </ul>
+
+        <h4>11.2 応用</h4>
+        <ul>
+            <li><span class="keyword">Disklessサーバ</span>の実現</li>
+            <li>データセンターでの利用:
+                <ul>
+                    <li><span class="keyword">NIM</span>(Network Install Management, IBM)</li>
+                    <li><span class="keyword">IPMI</span>(Intelligent Platform Management Interface)</li>
+                    <li>電源ON/OFF、UEFI/BIOS、OSインストール、監視が可能</li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="example">
+            <strong>参考事例:</strong> 角川グループへのランサムウェア攻撃と関連するインシデント
+        </div>
+
+        <h3>12. DNS (Domain Name System)</h3>
+
+        <h4>12.1 DNSの仕組み</h4>
+        <ul>
+            <li><span class="keyword">DNS権威サーバ</span>: ドメイン名の管理、ドメイン名とIPの対応を答える</li>
+            <li><span class="keyword">DNSキャッシュサーバ</span>: 世界中のDNSルートサーバやDNS権威サーバへ問い合わせ、対応を答える</li>
+            <li><span class="critical">権威サーバとキャッシュサーバを分離するべき</span></li>
+        </ul>
+
+        <h4>12.2 DNSキャッシュサーバのIPの取得</h4>
+        <ul>
+            <li><span class="important">DHCPから取得</span></li>
+            <li>DHCPからの応答は<span class="keyword">ブロードキャスト</span>(ローカルエリアネットワーク(L2)全体への通信)</li>
+        </ul>
+
+        <h4>12.3 ドメイン名を使う理由</h4>
+        <ol>
+            <li><span class="important">記憶しやすさ</span>: 192.168.0.1より www.example.com の方が覚えやすい
+                <div class="warning">
+                    <strong>危険:</strong> ドメイン名の多言語化による悪用<br>
+                    例: www.exampⅼe.com と www.example.com (見た目が同じでもUTFのコードが違う)
+                </div>
+            </li>
+            <li><span class="important">柔軟性</span>: IP管理組織を変更してもドメイン名との対応を書き換えれば継続利用可能
+                <div class="warning">
+                    DNSサーバの移転では<span class="critical">しばしば事故が発生</span><br>
+                    「浸透言うな!」中京大学鈴木常彦先生の警告
+                </div>
+            </li>
+        </ol>
+
+        <h4>12.4 ルートサーバ</h4>
+        <ul>
+            <li><span class="keyword">a.root-servers.org ~ m.root-servers.org</span> の13種</li>
+            <li>mは日本にある</li>
+            <li><span class="important">IP anycast</span>により、実際には複数のサーバが同一IPを使用</li>
+            <li>ネットワーク的に近いサーバが応答して<span class="important">負荷分散</span></li>
+            <li>管理の分散も実現</li>
+        </ul>
+
+        <h3>13. NAT (Network Address Translation)</h3>
+
+        <h4>13.1 基本機能</h4>
+        <ul>
+            <li><span class="keyword">プライベートアドレス</span>と<span class="keyword">グローバルアドレス</span>を変換</li>
+            <li>ルータ上で実現</li>
+            <li>家庭ではプロバイダから貸与/購入したルータが実現(DHCPも稼働)</li>
+            <li><span class="important">変換テーブル</span>で管理</li>
+        </ul>
+
+        <h4>13.2 インターネットの根幹</h4>
+        <ul>
+            <li>それぞれの機器が対応する変換テーブルを持つ</li>
+            <li>要求: 早く・大量に・ハードウェアの制約内で</li>
+        </ul>
+
+        <h4>13.3 通信制限</h4>
+        <ul>
+            <li><span class="critical">プライベートアドレスとグローバルアドレスは直接通信しない</span></li>
+            <li>ルータが直接通信を遮断</li>
+            <li>プライベートアドレスはインターネットへ流さないことが規定</li>
+        </ul>
+
+        <h4>13.4 (逆)IPマスカレード / Reverse NAT</h4>
+        <ul>
+            <li>プライベートアドレスでウェブサーバを立てたい場合に使用</li>
+            <li>用途例: discord, マインクラフトサーバ等</li>
+        </ul>
+        <div class="warning">
+            <strong>重要な注意:</strong> サーバで犯罪(ストーカー等)に関与すると警察が調査・押収に来ます<br>
+            認証連携していると更に確率UP
+        </div>
+
+        <h3>14. ネットワークの物理的実体</h3>
+
+        <h4>14.1 Wi-Fi・Ethernetケーブル</h4>
+        <ul>
+            <li><span class="critical">無線は盗聴される</span>
+                <ul>
+                    <li>対策1: <span class="important">暗号化</span></li>
+                    <li>対策2: <span class="important">接続相手の限定</span>(MACアドレスの利用)</li>
+                </ul>
+            </li>
+            <li>Ethernetケーブルの種類:
+                <ul>
+                    <li><span class="keyword">銅線(より対線)</span></li>
+                    <li><span class="keyword">光ファイバー</span>: <span class="critical">折らない、曲げない、汚さない</span></li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>14.2 MACアドレス (Media Access Control)</h4>
+        <ul>
+            <li><span class="important">48bit</span>: 上位24bitはベンダーID(製造会社)、下位24bitは識別子</li>
+            <li>スマホにも付いている</li>
+            <li><span class="keyword">匿名性維持</span>のためソフトウェアで変更する例(Apple)</li>
+            <li>無線LAN基地局のセキュリティと相反する場合がある</li>
+        </ul>
+
+        <div class="note">
+            <strong>なぜMACアドレスで通信しないのか?</strong>
+            <ul>
+                <li>機器が変わると<span class="critical">すべての対応表を変更</span>しないとならない</li>
+                <li>世界中のMACアドレスを管理する<span class="critical">メモリ量がハードウェアに対して大きすぎる</span></li>
+                <li>注: 千葉工大の2024年8月からのネットワークはこの考え方</li>
+            </ul>
+        </div>
+
+        <h4>14.3 ハブの種類</h4>
+        <table>
+            <tr>
+                <th>種類</th>
+                <th>特徴</th>
+            </tr>
+            <tr>
+                <td><span class="keyword">リピーターハブ / ダムハブ</span></td>
+                <td>
+                    • 論理的に同軸ケーブルをエミュレート<br>
+                    • 全てのポートに同じ信号が流れる(希少)<br>
+                    • パケットキャプチャできる<br>
+                    • ネットワーク障害の解析に活用
+                </td>
+            </tr>
+            <tr>
+                <td><span class="keyword">スイッチングハブ</span></td>
+                <td>
+                    • MACアドレスを学習<br>
+                    • 通信しているポート間のみ信号が流れる<br>
+                    • 高速
+                </td>
+            </tr>
+            <tr>
+                <td><span class="keyword">インテリジェントハブ</span></td>
+                <td>
+                    • モニター機能(SNMP)やVLAN機能を持つ<br>
+                    • <span class="critical">職場では必須</span><br>
+                    • 勝手にケーブルを付け替えられるとセキュリティホールが発生
+                </td>
+            </tr>
+        </table>
+
+        <h4>14.4 スパニングツリー</h4>
+        <ul>
+            <li><span class="important">ブロードキャストストーム</span>を防ぐ</li>
+            <li>全て宛のパケット(Ethernetフレーム)はループになったネットワーク上を回り続ける</li>
+            <li><span class="critical">イーサネットフレームにはTTLが無い</span></li>
+            <li>当初は物理的に届くか/届かないかのみを想定</li>
+        </ul>
+        <div class="warning">
+            <strong>実例:</strong> 意図せずケーブルを繋いでしまう人はいる<br>
+            過去の情報工学科研究室でも発生(無線LAN基地局の勝手な設置等)
+        </div>
+
+        <h4>14.5 IPパケット</h4>
+        <ul>
+            <li><span class="important">Time To Live (TTL)</span>という寿命が設定</li>
+            <li>ルータを通過するたびに1減らされる</li>
+            <li>0になると捨てられる</li>
+            <li>理由: パケットが永遠に生き残ると飽和する</li>
+        </ul>
+        <div class="warning">
+            途中のルータの数が多いと<span class="critical">パケットが届かない</span>
+        </div>
+
+        <h3>15. クラウド</h3>
+
+        <h4>15.1 サービスモデル</h4>
+        <ul>
+            <li><span class="keyword">SaaS</span> - Software as a Service</li>
+            <li><span class="keyword">PaaS</span> - Platform as a Service</li>
+            <li><span class="keyword">IaaS</span> - Infrastructure as a Service</li>
+            <li><span class="keyword">HaaS</span> - Hardware as a Service</li>
+        </ul>
+
+        <h4>15.2 主要クラウドサービス</h4>
+        <ul>
+            <li><span class="keyword">AWS</span> (Amazon Web Services)</li>
+            <li><span class="keyword">GCP</span> (Google Cloud Platform)</li>
+            <li><span class="keyword">Microsoft Azure</span></li>
+            <li>他多数</li>
+        </ul>
+
+        <h3>16. セキュリティ</h3>
+
+        <h4>16.1 暗号の種類</h4>
+        <ul>
+            <li><span class="keyword">換字暗号</span>: 文字の置き換え(原始的、時々復活する)</li>
+        </ul>
+
+        <h4>16.2 守るべき秘密</h4>
+        <ol>
+            <li><span class="important">通信の内容</span></li>
+            <li><span class="important">通信の相手</span></li>
+            <li><span class="important">通信があったという事実</span></li>
+        </ol>
+
+        <div class="note">
+            <strong>認知情報科学科として:</strong> 必要以上に利用者に負担を掛けると、セキュリティ技術を使わなくなる
+        </div>
+
+        <div class="example">
+            <strong>参考文献:</strong> ニール・スティーヴンスン「クリプトノミコン」(早川書房, 2002)<br>
+            ※スノウ・クラッシュでメタバース、アバターの世界を書いた作家
+        </div>
+
+        <h3>17. サイバー犯罪</h3>
+
+        <h4>17.1 定義と種類</h4>
+        <ul>
+            <li>ネットワーク/コンピュータに関する犯罪の総称</li>
+            <li>古くは: オンライン犯罪(銀行端末の操作)、利息プログラムでの悪用</li>
+        </ul>
+
+        <h4>17.2 マルウェア (悪意のあるソフトウェアの総称)</h4>
+        <table>
+            <tr>
+                <th>種類</th>
+                <th>特徴</th>
+            </tr>
+            <tr>
+                <td><span class="keyword">ウィルス</span></td>
+                <td><span class="important">感染能力や増殖能力</span>が必要</td>
+            </tr>
+            <tr>
+                <td><span class="keyword">ワーム</span></td>
+                <td>自立したソフトウェア、ネットワークやUSBを介して移動</td>
+            </tr>
+        </table>
+
+        <h4>17.3 感染経路</h4>
+        <ul>
+            <li>ウェブページに仕込まれる</li>
+            <li>ダウンロードを促される</li>
+            <li><span class="critical">USBメモリを挿しただけで感染</span></li>
+        </ul>
+
+        <div class="warning">
+            <strong>企業の対策:</strong>
+            <ul>
+                <li>多くの企業でUSBメモリ禁止</li>
+                <li>挿すと情報システム部門にアラート</li>
+                <li>情報漏洩の対策という意味もある</li>
+            </ul>
+        </div>
+
+        <h4>17.4 攻撃の種類</h4>
+        <ul>
+            <li><span class="keyword">標的型攻撃</span></li>
+            <li>ウェブページ、メールの捏造</li>
+            <li>6.8.1 不特定多数のPCからのデータ盗み出し</li>
+            <li>6.8.2 特定のサーバの機能停止</li>
+            <li>6.8.3 特定のサーバへの侵入</li>
+            <li>6.8.4 なりすまし</li>
+        </ul>
+
+        <h3>18. 暗号</h3>
+
+        <h4>18.1 エニグマ (Enigma)</h4>
+        <ul>
+            <li><span class="important">1918年</span>: アルトゥール・シェルビウス(ドイツ)発明</li>
+            <li><span class="important">1925年</span>: ドイツ軍採用</li>
+            <li><span class="important">1939年</span>: アラン・チューリング(イギリス)による解読(秘密にされた)</li>
+            <li><span class="keyword">換字暗号方式、順変多表式</span></li>
+            <li>一文字入力すると変換方式が変わる → 同じ文字が違う文字に変換</li>
+            <li>万一の際には破壊がドイツ軍の義務だったが<span class="critical">鹵獲された</span></li>
+        </ul>
+
+        <h4>18.2 暗号の安全性</h4>
+        <table>
+            <tr>
+                <th>種類</th>
+                <th>説明</th>
+            </tr>
+            <tr>
+                <td><span class="keyword">情報論的安全性</span></td>
+                <td>乱数を使用</td>
+            </tr>
+            <tr>
+                <td><span class="keyword">計算量的安全性</span></td>
+                <td>巨大な素数、楕円曲線を使用</td>
+            </tr>
+        </table>
+
+        <h3>19. セキュリティ技術</h3>
+        <ul>
+            <li><span class="keyword">公開鍵暗号</span></li>
+            <li><span class="keyword">公開鍵証明書</span>: Let's Encryptの活用とそれを使ったハック</li>
+            <li><span class="keyword">ソーシャルハック</span></li>
+            <li><span class="keyword">ワンタイムパスワード</span></li>
+            <li><span class="keyword">データの暗号化</span></li>
+            <li><span class="keyword">秘密分散・秘密計算</span></li>
+            <li><span class="keyword">PGP</span> (Pretty Good Privacy)開発の動機</li>
+        </ul>
+
+        <div class="section-divider"></div>
+
+        <h2>第3部: 人工知能とコンピューティングの広がり - 2025-12-10</h2>
+
+        <div class="note">
+            <strong>教科書:</strong> 田中琢真(著)「情報科学概論」学術図書出版、2019年、p.183-p.213
+        </div>
+
+        <h3>20. 関連科目</h3>
+        <ul>
+            <li>認知科学概論: 第6回(問題の表現と知識表現)、第7回(統計的機械学習)、第8回(ニューラルネットワーク)、第9回(身体性と構成論・倫理)</li>
+            <li>今後の科目: 認知科学基礎1,2、人工知能基礎1,2、自然言語処理、データマイニング、コミュニケーション、HCI、マシンラーニング、コンピュータビジョン</li>
+        </ul>
+
+        <h3>21. Googleの量子コンピュータWillow</h3>
+        <div class="note">最新の量子コンピュータの事例</div>
+
+        <h3>22. 「トルコ人」と人工知能の歴史</h3>
+
+        <h4>22.1 SFにおける人工知能</h4>
+        <ul>
+            <li>人形、自動機械、様々な物語の中の人工知能</li>
+            <li><span class="keyword">カレル・チャペック「R・U・R」</span>: 「ロボット」の語源</li>
+            <li><span class="keyword">アイザック・アシモフ</span>: ロボット三原則と第零法則</li>
+        </ul>
+
+        <h4>22.2 ロボット三原則</h4>
+        <div class="example">
+            出典: 「われはロボット」2058年の「ロボット工学ハンドブック」第56版より
+        </div>
+        <ol>
+            <li><span class="important">第一条:</span> ロボットは人間に危害を加えてはならない。また、その危険を看過することによって、人間に危害を及ぼしてはならない。</li>
+            <li><span class="important">第二条:</span> ロボットは人間にあたえられた命令に服従しなければならない。ただし、あたえられた命令が、第一条に反する場合は、この限りでない。</li>
+            <li><span class="important">第三条:</span> ロボットは、前掲第一条および第二条に反するおそれのないかぎり、自己をまもらなければならない。</li>
+        </ol>
+
+        <h4>22.3 第零法則</h4>
+        <ul>
+            <li><span class="critical">第零条:</span> ロボットは<span class="important">人類</span>に危害を加えてはならない。また、その危険を看過することによって、人類に危害を及ぼしてはならない。</li>
+            <li><span class="important">第一条の修正:</span> 第零法則に反する場合は第一条の制限が適用されない</li>
+        </ul>
+        <div class="warning">人工知能と倫理の問題</div>
+
+        <h3>23. 知能・知性の本質</h3>
+
+        <h4>23.1 中島秀之による定義</h4>
+        <div class="note">
+            <strong>出典:</strong> 中島秀之「知能の物語」(未来大出版会)2015<br>
+            東大院修了、電子総合研究所、産業総合研究所、公立はこだて未来大学学長、東京大学、札幌市立大学学長(現職)
+        </div>
+        <p><span class="important">「与えられた情報を使って制限時間内に解を導く機能」</span></p>
+
+        <h4>23.2 知性の問い</h4>
+        <ul>
+            <li>百科事典に知性はあるか?</li>
+            <li>尺取虫、海老、魚、猫、犬、モンキー、エイプ、ヒトに知性はあるか?</li>
+            <li>ChatGPTとiRobot社のRumbaに知性はあるか?</li>
+            <li><span class="critical">生成AIに知性はあるか?</span></li>
+        </ul>
+
+        <h3>24. OpenAI</h3>
+        <ul>
+            <li><span class="important">2015年11月設立</span>: 10億ドル</li>
+            <li><span class="keyword">サミュエル・H・アルトマン</span> (Samuel H. Altman)</li>
+            <li><span class="keyword">イーロン・マスク</span> (辞任済)</li>
+            <li>MSも出資</li>
+            <li>製品: <span class="keyword">ChatGPT, DALL-E</span>(画像生成), <span class="keyword">Whisper</span>(自動翻訳)</li>
+        </ul>
+
+        <div class="note">
+            <strong>アルトマンについて:</strong>
+            <ul>
+                <li>Yコンビネータの元代表</li>
+                <li>Yコンビネータは投資会社(Dropbox, Airbnb
